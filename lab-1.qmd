@@ -1,7 +1,8 @@
 ---
 title: "Lab 1 - Data visualization"
-format: html
+format: pdf
 editor: visual
+author: "Luke Owen"
 ---
 
 # Questions
