@@ -241,6 +241,43 @@ When you examine Menominee County in the data viewer, it has a very low percenta
 
 ### Question 8
 
+```{r}
+nc_county <- read_csv("data/nc-county.csv")
+write.csv(nc_county,"nc_county.csv")
+```
+Guess: negative realtionship. Not sure how severe. As area increases, negative effect on density.
 
+```{r}
+
+ggplot(nc_county, aes(x = land_area_mi2, y = density)) +
+  geom_point(alpha = 0.7) +
+  labs(
+    x = "Land area (miles^2)",
+    y = "Population density",
+    title = "Population density vs. land area of N. Carolina counties"
+  ) +
+  theme_minimal()
+```
+
+Describe the relationship:
+
+The scatterplot shows a negative relationship between land area and population density. Counties with smaller land areas tend to have much higher population densities, while counties with larger land areas generally have lower population densities. Most counties cluster at low densities across a wide range of land areas, but a few small- to medium-sized counties stand out as high-density outliers, likely representing urban or metropolitan counties. Overall, the pattern suggests that population density decreases as county land area increases.
 
 ### Question 9
+
+```{r}
+ggplot(nc_county, aes(x = land_area_m2, y = density)) +
+  geom_point(alpha = 0.7) +
+  labs(
+    x = "Land area (miles^2)",
+    y = "Population density",
+    title = "Population density vs. land area of N. Carolina counties"
+  ) +
+  theme_minimal()
+```
+
+Comparision to Q8:
+
+The scatterplot in Q8 and Q9 show the same underlying relationship. In both cases, there is a  negative association, with counties that have smaller land areas tending to exhibit higher population densities, and larger counties generally having lower densities. 
+
+The apparent difference between the two plots is purely due to a change in the units on the x-axis, which rescales the horizontal axis but does not change the overall pattern. Because square metres and square miles are linearly related by a constant conversion factor, the shape, direction, and strength of the relationship remain unchanged; only the  scale of the x-axis differs.
