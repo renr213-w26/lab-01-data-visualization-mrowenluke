@@ -5,11 +5,80 @@ editor: visual
 author: "Luke Owen"
 ---
 
+```{r load tidyverse}
+library(tidyverse)
+```
+
 # Questions
 
 ## Part 1
 
 ### Question 1
+
+Binwidth 100
+
+```{r #histogram of midwest, bin = 100}
+
+ggplot(midwest,aes(x = popdensity)) + 
+         geom_histogram(binwidth = 100) + 
+         labs( 
+           x = "Population Density",
+           y = "Count",
+           title = "Population density of midwestern counties", 
+           subtitle = "Binwidth = 100")
+
+```
+comment on binwidth: Too small based on data range. the histogram becomes noisy and overemphasizes minor fluctuations rather than the overall distribution.
+
+
+Binwidth 1,000
+
+```{r}
+#histogram of midwest, bin = 1000
+ggplot(midwest,aes(x = popdensity)) + 
+         geom_histogram(binwidth = 1000) + 
+         labs( 
+           x = "Population Density",
+           y = "Count",
+           title = "Population density of midwestern counties", 
+           subtitle = "Binwidth = 1000")
+
+```
+comment on binwidth: Best balance. Shows the right-skewed distribution and concentration of counties at low population densities while retaining meaningful structure viewing.
+
+
+Binwidth: 10,000
+
+```{r}
+#histogram of midwest, bin = 10000
+ggplot(midwest,aes(x = popdensity)) + 
+         geom_histogram(binwidth = 10000) + 
+         labs( 
+           x = "Population Density",
+           y = "Count",
+           title = "Population density of midwestern counties", 
+           subtitle = "Binwidth = 10000")
+
+
+```
+comment on binwidth: Too coarse. Important variation among lower-density counties is lost.
+
+
+Binwidth 100,000
+
+```{r}
+#histogram of midwest, bin = 100,000
+ggplot(midwest,aes(x = popdensity)) + 
+         geom_histogram(binwidth = 100000) + 
+         labs( 
+           x = "Population Density",
+           y = "Count",
+           title = "Population density of midwestern counties", 
+           subtitle = "Binwidth = 100000")
+
+
+```
+comment on binwidth: Far too coarse. Most counties collapse into very few bins, obscuring the distribution almost entirely.
 
 ### Question 2
 
