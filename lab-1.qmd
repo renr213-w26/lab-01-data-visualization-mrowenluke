@@ -7,8 +7,8 @@ author: "Luke Owen"
 
 ```{r load tidyverse}
 library(tidyverse)
+write_csv(midwest, "midwest.csv")
 ```
-
 # Questions
 
 ## Part 1
@@ -17,8 +17,8 @@ library(tidyverse)
 
 Binwidth 100
 
-```{r #histogram of midwest, bin = 100}
-
+```{r}
+#histogram of midwest, bin = 100
 ggplot(midwest,aes(x = popdensity)) + 
          geom_histogram(binwidth = 100) + 
          labs( 
@@ -82,11 +82,107 @@ comment on binwidth: Far too coarse. Most counties collapse into very few bins, 
 
 ### Question 2
 
+```{r}
+#boxplot showing full range of data
+ggplot(midwest, aes(x = "", y = popdensity)) + 
+  geom_boxplot() +  
+  labs(
+    y = "Population density",
+    x = "",
+    title = "Population of Midwestern counties"
+  )
+```
+
+```{r}
+#boxplot showing reduced range to show boxplot properly
+ggplot(midwest, aes(x = "", y = popdensity)) + 
+  geom_boxplot() + coord_cartesian(ylim = c(0, 5000)) +
+  labs(
+    y = "Population density",
+    x = "",
+    title = "Population of Midwestern counties"
+  )
+```
+
+Description of the Distribution: The distribution of population density of Midwestern counties is strongly right-skewed, as shown in both the histograms and the boxplot. Most counties have relatively low population densities, with the median close to the lower end of the distribution, while a small number of counties have extremely high densities. The boxplot shows a long upper tail and several high-end outliers, which is consistent with the histogram where most observations are concentrated near zero and the counts drop off rapidly as population density increases.
+
+Outliers: One clear outlier is Cook County, Illinois, which has a much higher population density than the majority of counties in the Midwest. This makes sense because Cook County contains the city of Chicago, a major urban center with a very large population concentrated in a relatively small area. As a result, its population density is substantially higher than that of predominantly rural counties, making it a reasonable and expected outlier.
+
 ### Question 3
+
+```{r}
+#scatterplot of percent below poverty vs percent college degree
+ggplot(
+  midwest, 
+  aes(
+    x = percollege, 
+    y = percbelowpoverty, 
+    colour = state, 
+    shape = state)) +
+  geom_point(alpha = 0.7) +
+  labs(
+    x = "Percent of population with college degree",
+    y = "Pecent of population below the poverty line",
+      title = "Poverty vs. college education in Midwestern counties",
+    subtitle = "Points colored and shaped by state")
+```
+
+Overall relationship:
+
+The scatterplot shows a clear negative relationship between the percentage of people with a college degree and the percentage of the population below the poverty line across Midwestern counties. As the share of residents with a college degree increases, the percentage living below poverty generally decreases. This pattern is visible across the full range of values, with counties that have lower college attainment tending to cluster at higher poverty levels and counties with higher college attainment clustering at lower poverty levels.
+
+Outlier:
+
+A clear outlier on the low-education, high-poverty end of the distribution is Menominee County, Wisconsin, which has one of the lowest percentages of college-educated residents and the highest poverty rate, a pattern that is consistent with its rural context and the presence of the Menominee Indian Reservation. An outlier in the opposite sense is Champaign County, Illinois, which combines very high college attainment with relatively high poverty, likely due to the large university student population associated with the University of Illinois.
 
 ### Question 4
 
+```{r}
+#scatterplot faceted by state
+ggplot(
+  midwest, 
+  aes(
+    x = percollege, 
+    y = percbelowpoverty, 
+    colour = state, 
+    shape = state)) +
+  geom_point(alpha = 0.7) +
+  geom_smooth(se = FALSE) +
+  facet_wrap(~state)
+  labs(
+    x = "Percent with college degree",
+    y = "Pecent below the poverty line",
+      title = "Poverty vs. college education in Midwestern counties",
+    subtitle = "Faceted by state with smooth trend lines")
+```
+
+Chart preference: 
+
+Between this plot, and the plot from question 3, I prefer this faceted plot because it makes it much easier to see how the relationship differs by state. In Question 3, all states are overlaid in one panel, so patterns can be harder to compare due to overlap. With faceting, you can quickly assess whether the negative relationship is stronger or weaker in certain states and whether any states show unusual shapes or outliers relative to their own trend.
+
 ### Question 5
+
+```{r}
+ggplot(midwest, aes(x = state, y = area)) +
+  geom_boxplot(alpha = 0.7) +
+  labs(
+    x = "State",
+    y = "County area",
+    title = "Distribution of county area by state in the Midwest"
+  )
+```
+
+Comparing across states:
+
+Typical county area sizes vary across Midwestern states, with some states having generally larger counties than others. The boxplots show that states such as Michigan and Wisconsin tend to have larger median county areas, while states like Ohio and Indiana have smaller typical county sizes.
+
+Variability differs by state:
+
+Michigan and Wisconsin exhibit a wider spread in county areas, indicating greater variability, whereas states with smaller counties tend to have more tightly clustered distributions. 
+
+Largest County:
+
+The single largest county in the dataset is Marquette County, Michigan, which appears as a high-end outlier in the Michigan boxplot. 
 
 ### Question 6
 
