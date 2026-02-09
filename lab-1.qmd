@@ -186,12 +186,61 @@ The single largest county in the dataset is Marquette County, Michigan, which ap
 
 ### Question 6
 
+```{r}
+midwest <- midwest |>
+  mutate(metro = if_else(inmetro == 1, "Yes", "No"))
+
+ggplot(midwest, aes(x = state, fill = metro)) +
+  geom_bar(position = "fill") +
+  scale_y_continuous(limits = c(0, 1)) +
+  labs(
+    x = "State",
+    y = "Proportion of counties",
+    fill = "Metro area",
+    title = "Proportion of counties classified as metro areas by state"
+  )
+
+```
+
+Comparing Proportions:
+
+The segmented bar chart shows clear differences in the proportion of counties classified as metro areas across Midwestern states. Illinois and Ohio have the highest shares of metro counties, with roughly 40–50% of their counties classified as metro. Indiana and Michigan appear to have moderate proportions, at approximately 30–40%. In contrast, states such as Wisconsin and Minnesota have lower proportions of metro counties, closer to 20–30%, while North Dakota and South Dakota have the smallest shares, with metro counties making up roughly 10–20% of all counties. 
+
 ### Question 7
+
+```{r}
+ggplot(
+  midwest, 
+  aes(
+    x = percollege, 
+    y = percbelowpoverty, colour = percwhite
+    )) +
+  geom_point(alpha = 0.5, size = 2) +
+  facet_wrap(~state) +   scale_color_continuous(name = "% white") + 
+  labs(
+     x = "% college educated",
+    y = "% below poverty line",
+    title = "Poverty vs. college education in Midwestern counties",
+    subtitle = "Faceted by state and colored by percentage white") + 
+    theme_minimal()
+```
+
+Wisconsin outlier: 
+
+A very clear outlier in Wisconsin is Menominee County, Wisconsin.
+
+In the WI facet, this county stands out because it has extremely high poverty (near the top of the y-axis) and relatively low college attainment compared to most other Wisconsin counties.This makes it visually isolated from the main cluster of WI counties.
+
+Population composition: 
+
+When you examine Menominee County in the data viewer, it has a very low percentage of white residents compared to other Wisconsin counties with a large proportion of the population being Native American.
 
 ## Part 2
 
 **Enough about the Midwest!**
 
 ### Question 8
+
+
 
 ### Question 9
